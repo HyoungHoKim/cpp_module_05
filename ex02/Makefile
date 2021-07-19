@@ -1,7 +1,8 @@
 CPP = clang++
 CPPFLAGS = -Wall -Werror -Wextra -std=c++98 
 
-SRCS = Bureaucrat.cpp Form.cpp ShrubberyCreationForm.cpp main.cpp
+SRCS = Bureaucrat.cpp Form.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp \
+	   PresidentialPardonForm.cpp main.cpp
 OBJS = $(SRCS:.cpp=.o)
 NAME = form
 

@@ -71,6 +71,15 @@ void Bureaucrat::signForm(Form &_form)
 		" because " << "grade is too low!!!" << std::endl;
 }
 
+void Bureaucrat::executeForm(Form const &form)
+{
+	if (form.getSigned() && (form.getExec_grade() >= this->grade))
+		std::cout << this->name << " executes " << form.getName() << std::endl;
+	else
+		throw Bureaucrat::CannotExecuteException();
+
+}
+
 const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
 	return ("Grade Too High!!!!");
@@ -78,6 +87,11 @@ const char *Bureaucrat::GradeTooHighException::what() const throw()
 const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
 	return ("Grade Too Low!!!!");
+}
+
+const char *Bureaucrat::CannotExecuteException::what() const throw()
+{
+	return ("Not Signed or Too Low Execute Grade, Cannot Execute Form!!!!");
 }
 
 std::ostream &operator<<(std::ostream &os, const Bureaucrat &_bc)

@@ -1,32 +1,108 @@
 #include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
-
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 int main(void)
 {
-	ShrubberyCreationForm* shrub = new ShrubberyCreationForm("Patrick");
-    //RobotmyRequestForm* robot = new RobotmyRequestForm("Bob");
-    //PresidentialPardonForm* pardon = new PresidentialPardonForm("Pef");
+    srand(time(NULL));
+	ShrubberyCreationForm* shrub = new ShrubberyCreationForm("Farm");
+    RobotomyRequestForm* robot = new RobotomyRequestForm("Factory");
+    PresidentialPardonForm* pardon = new PresidentialPardonForm("Army");
 
     Bureaucrat* bob = new Bureaucrat("Bob", 120);
-    //Bureaucrat* james = new Bureaucrat("James", 33);
-    //Bureaucrat* meg = new Bureaucrat("Meg", 1);
+    Bureaucrat* jim = new Bureaucrat("Jim", 140);
+    Bureaucrat* james = new Bureaucrat("James", 33);
+    Bureaucrat* lisa = new Bureaucrat("Lisa", 1);
 
+    std::cout << "------------ shrub ------------" << std::endl;
     shrub->beSigned(*bob);
-    bob->signForm(*shrub);
-    //bob->executeForm(*shrub);
-    //testForm(james, robot);
-    //testForm(meg, pardon);
+    shrub->execute(*bob);
+    bob->executeForm(*shrub);
+    shrub->beSigned(*jim);
+    try
+    {
+        shrub->execute(*jim);
+    }
+    catch(std::exception const &e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+    try
+    {
+        jim->executeForm(*shrub);
+    }
+    catch(std::exception const &e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
 
-    //testForm(bob, pardon);
+    std::cout << "------------ robot ------------" << std::endl;
+    robot->beSigned(*james);
+    robot->execute(*james);
+    james->executeForm(*robot);
+    try
+    {
+        robot->beSigned(*jim);
+    }
+    catch(std::exception const &e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+    try
+    {
+        robot->execute(*jim);
+    }
+    catch(std::exception const &e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+    try
+    {
+        jim->executeForm(*robot);
+    }
+    catch(std::exception const &e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+
+    std::cout << "------------ pardon ------------" << std::endl;
+    pardon->beSigned(*lisa);
+    pardon->execute(*lisa);
+    lisa->executeForm(*pardon);
+    try
+    {
+        pardon->beSigned(*jim);
+    }
+    catch(std::exception const &e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+    try
+    {
+        pardon->execute(*jim);
+    }
+    catch(std::exception const &e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+    try
+    {
+        jim->executeForm(*robot);
+    }
+    catch(std::exception const &e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
 
     delete shrub;
-    //delete robot;
-    //delete pardon;
+    delete robot;
+    delete pardon;
 
     delete bob;
-    //delete james;
-    //delete meg;
+    delete jim;
+    delete james;
+    delete lisa;
 
     return (0);
 }
